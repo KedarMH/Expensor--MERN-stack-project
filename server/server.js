@@ -1,10 +1,10 @@
 import express from "express";
-import mongoose from "mongoose";
 import cors from "cors";
 import bodyParser from "body-parser";
-import Transaction from "./models/Transaction.js"
+import TransactionsApi from "./routes/TransactionsApi.js"
+import connect from "./database/mongodb.js"
 
-mongoose.set('strictQuery', true);
+
 
 const PORT = 4000
 const app = express();
@@ -12,31 +12,13 @@ const app = express();
 app.use(cors())
 app.use(bodyParser.json())
 
-await mongoose.connect(
-    "mongodb+srv://kedar:kedar19@expensor-mern.vuyicpz.mongodb.net/?retryWrites=true&w=majority"
-);
-console.log('MongoDB is connected');
-
 app.get("/", (req, res) => {
     res.send("Hello world");
 });
 
-app.get("/transaction", async (req, res) => {
-    const transaction = await Transaction.find({}).sort({ createdAt: -1 })
-    res.json({ data: transaction })
-});
+app.use('/transaction', TransactionsApi);
 
-app.post("/transaction", async (req, res) => {
-    const { amount, description, date } = req.body;
-    const transaction = new Transaction({
-        amount,
-        description,
-        date,
-
-    })
-    await transaction.save();
-    res.json({ message: "Success" });
-});
+await connect();
 
 app.listen(PORT, () => {
     console.log(`Server is running at port ${PORT}`);
