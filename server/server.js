@@ -16,10 +16,14 @@ await mongoose.connect(
     "mongodb+srv://kedar:kedar19@expensor-mern.vuyicpz.mongodb.net/?retryWrites=true&w=majority"
 );
 console.log('MongoDB is connected');
-// .catch((err) => console.error(err))
 
 app.get("/", (req, res) => {
     res.send("Hello world");
+});
+
+app.get("/transaction", async (req, res) => {
+    const transaction = await Transaction.find({}).sort({ createdAt: -1 })
+    res.json({ data: transaction })
 });
 
 app.post("/transaction", async (req, res) => {
@@ -36,4 +40,4 @@ app.post("/transaction", async (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`Server is running at port ${PORT}`);
-})
+});
