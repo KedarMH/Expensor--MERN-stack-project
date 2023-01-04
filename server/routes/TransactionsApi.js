@@ -1,4 +1,4 @@
-import {Router} from "express";
+import { Router } from "express";
 import Transaction from "../models/Transaction.js";
 
 const router = Router();
@@ -14,10 +14,14 @@ router.post("/", async (req, res) => {
         amount,
         description,
         date,
-
-    })
+    });
     await transaction.save();
     res.json({ message: "Success" });
 });
+
+router.delete("/:id", async (req, res) => {
+    await Transaction.findOneAndDelete({ _id: req.params.id });
+    res.json({ message: "Success" })
+})
 
 export default router;

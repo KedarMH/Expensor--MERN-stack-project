@@ -7,8 +7,23 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import EditSharpIcon from '@mui/icons-material/EditSharp';
+import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
+import IconButton from '@mui/material/IconButton';
 
-export default function TransactionsList({ transactions }) {
+
+export default function TransactionsList({ transactions, fetchTransctions }) {
+  async function remove(_id) {
+    if (!window.confirm("Are you sure")) return;
+    const res = await fetch(`http://localhost:4000/transaction/${_id}`, {
+      method: 'DELETE',
+    });
+    if (res.ok) {
+      fetchTransctions();
+      window.alert('Deleted Successfully');
+    }
+  }
+
   return (
     <>
       <Typography sx={{ marginTop: 10 }} variant='h6' >List of Transactions</Typography>
@@ -25,15 +40,22 @@ export default function TransactionsList({ transactions }) {
           <TableBody>
             {transactions.map((row) => (
               <TableRow
-                key={row.name}
+                key={row._id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell align="center" component="th" scope="row">{row.amount}</TableCell>
                 <TableCell align="center">{row.description}</TableCell>
                 <TableCell align="center">{row.date}</TableCell>
                 <TableCell align="center">
-                  <p>edit</p>
-                  delete
+
+                  <IconButton aria-label="edit" color="primary">
+                    <EditSharpIcon />
+                  </IconButton>
+
+                  <IconButton aria-label="delete" color="error" onClick={() => remove(row._id)}>
+                    <DeleteSharpIcon />
+                  </IconButton>
+
                 </TableCell>
               </TableRow>
             ))}

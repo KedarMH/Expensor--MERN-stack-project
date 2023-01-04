@@ -23,7 +23,7 @@ function App() {
       <Container>
         <TransactionForm fetchTransctions={fetchTransctions} />
 
-        <TransactionsList transactions={transactions} />
+        <TransactionsList transactions={transactions} fetchTransctions={fetchTransctions} />
 
       </Container>
 
