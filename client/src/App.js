@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react'
+import AppBar from './components/AppBar.js'
+import TransactionForm from './components/TransactionForm.js'
+
 
 
 const InitialForm = {
@@ -38,13 +41,15 @@ function App() {
     });
 
     if (res.ok) {
-      setForm (InitialForm);
+      setForm(InitialForm);
       fetchTransctions();
     }
   }
 
   return (
     <div>
+      <AppBar />
+      <TransactionForm/>
       <form onSubmit={handleSubmit}>
         <input
           type="number"
