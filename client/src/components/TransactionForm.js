@@ -8,6 +8,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
 import Button from '@mui/material/Button';
 
+
 const InitialForm = {
     amount: 0,
     description: "",
@@ -42,45 +43,48 @@ export default function TransactionForm({ fetchTransctions }) {
     }
 
     return (
-        <Card sx={{ minWidth: 275, marginTop: 10 }}>
-            <CardContent>
-                <Typography variant="h6">Add New Transaction</Typography>
-                <form onSubmit={handleSubmit} >
-                    <TextField
-                        sx={{ marginRight: 5 }}
-                        id="outlined-basic"
-                        label="Amount"
-                        size='small'
-                        name='amount'
-                        variant="outlined"
-                        value={form.amount}
-                        onChange={handleChange}
+        
+            <Card sx={{ minWidth: 275, marginTop: 10 }}>
+                <CardContent>
+                    <Typography variant="h6">Add New Transaction</Typography>
+                    <form onSubmit={handleSubmit} >
+                        <TextField
+                            sx={{ marginRight: 5 }}
+                            id="outlined-basic"
+                            label="Amount"
+                            size='small'
+                            name='amount'
+                            variant="outlined"
+                            value={form.amount}
+                            onChange={handleChange}
 
-                    />
-                    <TextField
-                        sx={{ marginRight: 5 }}
-                        id="outlined-basic"
-                        label="Description"
-                        size='small'
-                        name='description'
-                        variant="outlined"
-                        value={form.description}
-                        onChange={handleChange}
-                    />
-
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DesktopDatePicker
-                            label="Transaction Date"
-                            inputFormat="DD/MM/YYYY"
-                            value={form.date}
-                            onChange={handleDate}
-                            renderInput={(params) => <TextField {...params} size='small' sx={{ marginRight: 5 }} />}
                         />
-                    </LocalizationProvider>
-                    <Button type='submit' variant="contained">Submit</Button>
+                        <TextField
+                            sx={{ marginRight: 5 }}
+                            id="outlined-basic"
+                            label="Description"
+                            size='small'
+                            name='description'
+                            variant="outlined"
+                            value={form.description}
+                            onChange={handleChange}
+                        />
 
-                </form>
-            </CardContent>
-        </Card>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DesktopDatePicker
+                                label="Transaction Date"
+                                inputFormat="DD/MM/YYYY"
+                                value={form.date}
+                                onChange={handleDate}
+                                renderInput={(params) => <TextField {...params} size='small' sx={{ marginRight: 5 }} />}
+                            />
+                        </LocalizationProvider>
+                        <Button type='submit' variant="contained">Submit</Button>
+
+                    </form>
+                </CardContent>
+            </Card>
+        
+
     );
 }
