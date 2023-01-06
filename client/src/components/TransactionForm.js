@@ -19,7 +19,7 @@ export default function TransactionForm({ fetchTransctions, editTransaction }) {
     const [form, setForm] = useState(InitialForm)
 
     useEffect(() => {
-        if (editTransaction !== {}) {
+        if (editTransaction.amount !== undefined) {
             setForm(editTransaction);
         }
     }, [editTransaction]);
@@ -35,9 +35,10 @@ export default function TransactionForm({ fetchTransctions, editTransaction }) {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const res = editTransaction === {} ? create() : update();
+        const res = editTransaction.amount === undefined ? create() : update();
+    }
 
-
+    function reload(res) {
         if (res.ok) {
             setForm(InitialForm);
             fetchTransctions();
@@ -52,7 +53,7 @@ export default function TransactionForm({ fetchTransctions, editTransaction }) {
                 "content-type": "application/json",
             },
         });
-        return res
+        reload(res);
     }
 
     async function update() {
@@ -63,7 +64,7 @@ export default function TransactionForm({ fetchTransctions, editTransaction }) {
                 "content-type": "application/json",
             },
         });
-        return res
+        reload(res);
     }
 
 
@@ -104,12 +105,12 @@ export default function TransactionForm({ fetchTransctions, editTransaction }) {
                             renderInput={(params) => <TextField {...params} size='small' sx={{ marginRight: 5 }} />}
                         />
                     </LocalizationProvider>
-                    {editTransaction !== {} && (
+                    {editTransaction.amount !== undefined && (
                         <Button type="submit" variant="secondary">
                             Update
                         </Button>
                     )}
-                    {editTransaction === {} && (
+                    {editTransaction.amount === undefined && (
                         <Button type="submit" variant="contained">
                             Submit
                         </Button>
