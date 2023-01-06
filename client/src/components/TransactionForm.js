@@ -35,7 +35,7 @@ export default function TransactionForm({ fetchTransctions, editTransaction }) {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const res = editTransaction.amount === undefined ? create() : update();
+        editTransaction.amount === undefined ? create() : update();
     }
 
     function reload(res) {

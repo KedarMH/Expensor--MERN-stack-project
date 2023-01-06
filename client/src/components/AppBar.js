@@ -4,15 +4,16 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+// import IconButton from '@mui/material/IconButton';
+// import MenuIcon from '@mui/icons-material/Menu';
+import { Link } from 'react-router-dom';
 
 export default function ButtonAppBar() {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton
+                    {/* <IconButton
                         size="large"
                         edge="start"
                         color="inherit"
@@ -20,11 +21,16 @@ export default function ButtonAppBar() {
                         sx={{ mr: 2 }}
                     >
                         <MenuIcon />
-                    </IconButton>
+                    </IconButton> */}
+
                     <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-                        Expensor
+                        <Link to='/' className='text-white' >Expensor</Link>
                     </Typography>
-                    <Button color="inherit">Login</Button>
+
+                    <Link to='/login' className='text-white' >
+                        <Button color="inherit">Login</Button>
+                    </Link>
+
                 </Toolbar>
             </AppBar>
         </Box>
