@@ -2,8 +2,11 @@ import mongoose from "mongoose";
 mongoose.set('strictQuery', true);
 
 async function connect() {
+    const username = process.env.MONGO_DB_USERNAME;
+    const password = process.env.MONGO_DB_PASSWORD;
+    const url = process.env.MONGO_DB_URL;
     await mongoose.connect(
-        "mongodb+srv://kedar:kedar19@expensor-mern.vuyicpz.mongodb.net/?retryWrites=true&w=majority"
+        `mongodb+srv://${username}:${password}@${url}/?retryWrites=true&w=majority`
     );
     console.log('MongoDB is connected');
 }
