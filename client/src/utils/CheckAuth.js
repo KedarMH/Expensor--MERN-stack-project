@@ -23,7 +23,7 @@ function CheckAuth({ children }) {
     }
 
     useEffect(() => {
-        fetchUser()
+        fetchUser();
     }, [])
 
     if (isLoading) {
