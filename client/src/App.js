@@ -1,18 +1,37 @@
-import React, { useEffect } from 'react'
-import AppBar from './components/AppBar.js'
+import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux';
-import { getUser } from './store/auth.js';
+import AppBar from "./components/AppBar";
+import { getUser } from "./store/auth.js";
 
 function App() {
-  const auth = useSelector(state => state.auth)
-  console.log(auth);
-  const dispatch = useDispatch()
+  const token = Cookies.get("token");
+  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
+
+  async function fetchUser() {
+    setIsLoading(true);
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/user`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (res.ok) {
+      const user = await res.json();
+      dispatch(getUser(user));
+    }
+    setIsLoading(false);
+  }
 
   useEffect(() => {
-    dispatch(getUser())
-  }, [])
+    fetchUser();
+  }, []);
 
+  if (isLoading) {
+    return <p>Loading ...</p>;
+  }
 
   return (
     <>
