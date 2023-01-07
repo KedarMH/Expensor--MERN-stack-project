@@ -7,6 +7,7 @@ import AuthApi from "./routes/AuthApi.js"
 import passport from "passport";
 import passportConfig from "./config/passport.js"
 import * as dotenv from "dotenv";
+import UserApi from "./routes/UserApi.js"
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 
 app.use('/transaction', TransactionsApi);
 app.use('/auth', AuthApi);
+app.use('/user', UserApi)
 
 await connect();
 
