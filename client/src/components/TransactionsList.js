@@ -15,7 +15,7 @@ import Cookies from 'js-cookie';
 
 
 export default function TransactionsList({ transactions, fetchTransctions, setEditTransaction }) {
-  
+
   async function remove(_id) {
     const token = Cookies.get('token')
     if (!window.confirm("Are you sure")) return;
@@ -44,6 +44,7 @@ export default function TransactionsList({ transactions, fetchTransctions, setEd
             <TableRow>
               <TableCell align="center">Amount</TableCell>
               <TableCell align="center">Description</TableCell>
+              <TableCell align="center">Category</TableCell>
               <TableCell align="center">Date</TableCell>
               <TableCell align="center">Action</TableCell>
             </TableRow>
@@ -56,6 +57,7 @@ export default function TransactionsList({ transactions, fetchTransctions, setEd
               >
                 <TableCell align="center" component="th" scope="row">{row.amount}</TableCell>
                 <TableCell align="center">{row.description}</TableCell>
+                <TableCell align="center">{row.category_id}</TableCell>
                 <TableCell align="center">{formatDate(row.date)}</TableCell>
                 <TableCell align="center">
 
