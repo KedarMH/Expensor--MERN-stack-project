@@ -12,9 +12,16 @@ import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 import IconButton from '@mui/material/IconButton';
 import dayjs from 'dayjs';
 import Cookies from 'js-cookie';
+import { useSelector } from 'react-redux';
 
 
 export default function TransactionsList({ transactions, fetchTransctions, setEditTransaction }) {
+
+  const user = useSelector(state => state.auth.user)
+  function categoryName(id) {
+    const category = user.categories.find((category) => category._id === id);
+    return category ? category.label : "NA";
+  }
 
   async function remove(_id) {
     const token = Cookies.get('token')
@@ -57,7 +64,7 @@ export default function TransactionsList({ transactions, fetchTransctions, setEd
               >
                 <TableCell align="center" component="th" scope="row">{row.amount}</TableCell>
                 <TableCell align="center">{row.description}</TableCell>
-                <TableCell align="center">{row.category_id}</TableCell>
+                <TableCell align="center">{categoryName(row.category_id)}</TableCell>
                 <TableCell align="center">{formatDate(row.date)}</TableCell>
                 <TableCell align="center">
 
